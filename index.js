@@ -55,6 +55,22 @@ function render() {
 }
 
 // this function should make all the stuff i want to be shown in the browser. hopefully.
-function renderSingleParty() {
-  // add this later
+function renderSingleParty(party) {
+  const title = document.createElement("h2");
+  title.textContent = party.name;
+
+  const date = document.createElement("p");
+  date.textContent = `Date: ${new Date(party.date).toLocaleString()}`; // this SHOULD turn the raw date data into something readable. hopefully. I am not entirely sure.
+
+  //testing to see how toLocaleString works on date. had to move inside of function because call was not working.
+  console.log("Raw date from API:", party.date);
+  console.log("formatted:", new Date(party.date).toLocaleString());
+
+  app.appendChild(title);
+  app.appendChild(date);
 }
+// triggers fetch
+fetchParties();
+//testing to see how toLocaleString works on date
+//console.log("Raw date from API:", party.date);
+//console.log("formatted:", new Date(party.date).toLocaleString());
