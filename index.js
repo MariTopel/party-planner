@@ -38,6 +38,11 @@ const app = document.getElementById("app");
 function render() {
   app.innerHTML = ""; //this should clear the inside of the 'app' div. I think because it defines app as an empty string as soon as render is called?
 
+  const instructions = document.createElement("p");
+  instructions.textContent =
+    "Click on the party that you wish to know more about.";
+  app.appendChild(instructions);
+
   if (state.pickOneParty) {
     renderSingleParty(state.pickOneParty); // this will call a function to be written that creates the visual part in the browser
     return;
