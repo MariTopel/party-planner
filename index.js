@@ -38,8 +38,18 @@ const app = document.getElementById("app");
 function render() {
   app.innerHTML = ""; //this should clear the inside of the 'app' div. I think because it defines app as an empty string as soon as render is called?
 
+  //container
+  const container = document.createElement("div");
+  container.style.display = "flex";
+  container.style.gap = "30px";
+
+  // left list
+
+  const partyList = document.createElement("div");
+  partyList.style.flex = "1";
+
   if (state.pickOneParty) {
-    renderSingleParty(state.pickOneParty); // this will call a function to be written that creates the visual part in the browser
+    renderSingleParty(state.pickOneParty); // this calls a function that makes all this visual in the browser.
     return;
   }
 
@@ -59,12 +69,23 @@ function render() {
     });
 
     partyCard.appendChild(name);
-    app.appendChild(partyCard);
+    partyList.appendChild(partyCard);
   }
+
+  //party information
+  const partyInfo = document.createElement("div");
+  partyInfo.style.flex = "1";
+  partyInfo.id = "party-info";
+
+  container.appendChild(partyList);
+  container.appendChild(partyInfo);
+  app.appendChild(container);
 }
 
 // this function should make all the stuff i want to be shown in the browser. hopefully.
 function renderSingleParty(party) {
+  app.innerHTML = "";
+
   const title = document.createElement("h2");
   title.textContent = party.name;
 
@@ -82,8 +103,8 @@ function renderSingleParty(party) {
 
   //testing to see how toLocaleString works on date. had to move inside of function because call was not working.
   // it didn't work with console log figure that out later
-  console.log("Raw date from API:", party.date);
-  console.log("formatted:", new Date(party.date).toLocaleString());
+  //console.log("Raw date from API:", party.date);
+  //console.log("formatted:", new Date(party.date).toLocaleString());
 
   app.appendChild(title);
   app.appendChild(date);
