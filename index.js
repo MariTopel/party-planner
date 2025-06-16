@@ -31,3 +31,30 @@ async function fetchPartyById(id) {
     console.error("could not retrieve single party", error);
   }
 }
+
+//update. i understand that this defines what is inside the app div. and when we call render the app.innerHTML will clear this data so we can use it over and over.
+const app = document.getElementById("app");
+
+function render() {
+  app.innerHTML = ""; //this should clear the inside of the 'app' div. I think because it defines app as an empty string as soon as render is called?
+
+  if (state.pickOneParty) {
+    renderSingleParty(state.pickOneParty); // this will call a function to be written that creates the visual part in the browser
+    return;
+  }
+
+  for (let party of state.partyList) {
+    // this will go through each party in the array/list and create a new div/thing that says the name of the party in the h3 heading. also adds to the app element i think???
+    const partyCard = document.createElement("div");
+    const name = document.createElement("h3");
+    name.textContent = party.name;
+
+    partyCard.appendChild(name);
+    app.appendChild(partyCard);
+  }
+}
+
+// this function should make all the stuff i want to be shown in the browser. hopefully.
+function renderSingleParty() {
+  // add this later
+}
