@@ -48,15 +48,20 @@ function render() {
   const partyList = document.createElement("div");
   partyList.style.flex = "1";
 
-  if (state.pickOneParty) {
-    renderSingleParty(state.pickOneParty); // this calls a function that makes all this visual in the browser.
-    return;
-  }
+  //party information. i guess this has to be before the if statement because of ordering. do not fully understand.
+  const partyInfo = document.createElement("div");
+  partyInfo.style.flex = "1";
+  partyInfo.id = "party-info";
 
-  const instructions = document.createElement("p");
-  instructions.textContent =
-    "Click on the party that you wish to know more about.";
-  app.appendChild(instructions);
+  if (state.pickOneParty) {
+    renderSingleParty(state.pickOneParty, partyInfo); // added party info as an arguement because it puts the state.pickOneParty info into the partyInfo dom element??? this calls a function that makes all this visual in the browser.
+  } else {
+    // moved some code around and made the return not too early.
+    const instructions = document.createElement("p");
+    instructions.textContent =
+      "Click on the party that you wish to know more about.";
+    partyInfo.appendChild(instructions);
+  }
 
   for (let party of state.partyList) {
     // this will go through each party in the array/list and create a new div/thing that says the name of the party in the h3 heading. also adds to the app element i think???
@@ -72,19 +77,15 @@ function render() {
     partyList.appendChild(partyCard);
   }
 
-  //party information
-  const partyInfo = document.createElement("div");
-  partyInfo.style.flex = "1";
-  partyInfo.id = "party-info";
-
   container.appendChild(partyList);
   container.appendChild(partyInfo);
   app.appendChild(container);
 }
 
 // this function should make all the stuff i want to be shown in the browser. hopefully.
-function renderSingleParty(party) {
-  app.innerHTML = "";
+function renderSingleParty(party, container) {
+  container.innerHTML = "";
+  // app.innerHTML = ""; this was clearing out the whole thing and ruining my life
 
   const title = document.createElement("h2");
   title.textContent = party.name;
@@ -106,11 +107,11 @@ function renderSingleParty(party) {
   //console.log("Raw date from API:", party.date);
   //console.log("formatted:", new Date(party.date).toLocaleString());
 
-  app.appendChild(title);
-  app.appendChild(date);
-  app.appendChild(id);
-  app.appendChild(location);
-  app.appendChild(description);
+  container.appendChild(title);
+  container.appendChild(date);
+  container.appendChild(id);
+  container.appendChild(location);
+  container.appendChild(description);
 }
 // triggers fetch
 fetchParties();
