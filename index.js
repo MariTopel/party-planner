@@ -38,15 +38,15 @@ const app = document.getElementById("app");
 function render() {
   app.innerHTML = ""; //this should clear the inside of the 'app' div. I think because it defines app as an empty string as soon as render is called?
 
-  const instructions = document.createElement("p");
-  instructions.textContent =
-    "Click on the party that you wish to know more about.";
-  app.appendChild(instructions);
-
   if (state.pickOneParty) {
     renderSingleParty(state.pickOneParty); // this will call a function to be written that creates the visual part in the browser
     return;
   }
+
+  const instructions = document.createElement("p");
+  instructions.textContent =
+    "Click on the party that you wish to know more about.";
+  app.appendChild(instructions);
 
   for (let party of state.partyList) {
     // this will go through each party in the array/list and create a new div/thing that says the name of the party in the h3 heading. also adds to the app element i think???
@@ -71,6 +71,15 @@ function renderSingleParty(party) {
   const date = document.createElement("p");
   date.textContent = `Date: ${new Date(party.date).toLocaleString()}`; // this SHOULD turn the raw date data into something readable. hopefully. I am not entirely sure.
 
+  const id = document.createElement("p");
+  id.textContent = `ID: ${party.id}`;
+
+  const location = document.createElement("p");
+  location.textContent = `Location: ${party.location}`;
+
+  const description = document.createElement("p");
+  description.textContent = `Description: ${party.description}`;
+
   //testing to see how toLocaleString works on date. had to move inside of function because call was not working.
   // it didn't work with console log figure that out later
   console.log("Raw date from API:", party.date);
@@ -78,6 +87,9 @@ function renderSingleParty(party) {
 
   app.appendChild(title);
   app.appendChild(date);
+  app.appendChild(id);
+  app.appendChild(location);
+  app.appendChild(description);
 }
 // triggers fetch
 fetchParties();
