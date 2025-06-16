@@ -48,6 +48,10 @@ function render() {
     const partyCard = document.createElement("div");
     const name = document.createElement("h3");
     name.textContent = party.name;
+    // makes the party name a button and when you click it the date is shown.
+    name.addEventListener("click", () => {
+      fetchPartyById(party.id);
+    });
 
     partyCard.appendChild(name);
     app.appendChild(partyCard);
@@ -63,6 +67,7 @@ function renderSingleParty(party) {
   date.textContent = `Date: ${new Date(party.date).toLocaleString()}`; // this SHOULD turn the raw date data into something readable. hopefully. I am not entirely sure.
 
   //testing to see how toLocaleString works on date. had to move inside of function because call was not working.
+  // it didn't work with console log figure that out later
   console.log("Raw date from API:", party.date);
   console.log("formatted:", new Date(party.date).toLocaleString());
 
